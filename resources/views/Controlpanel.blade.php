@@ -16,7 +16,7 @@
 <body>
 
 
-<form action="/insert"method="post">
+<form action="/insert"method="post" enctype="multipart/form-data">
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
         <div class="modal-dialog" role="document">
@@ -41,21 +41,21 @@
       <input class="form-control card-body" type="time" name="showtime"required>
     </div>
 
-    {{--<div class="form-group">--}}
-        {{--<div class="input-group mb-3">--}}
-            {{--<div class="custom-file">--}}
-                {{--<input type="file" name="src" class="custom-file-input" id="inputGroupFile02">--}}
-                {{--<label class="custom-file-label" for="inputGroupFile02">Choose image</label>--}}
-            {{--</div>--}}
+    <div class="form-group card-header">
 
-        {{--</div>--}}
+            <div class="custom-file">
+                <input type="file" name="src" class="custom-file-input" id="inputGroupFile02">
+                <label class="custom-file-label" for="inputGroupFile02">Choose image</label>
 
-    {{--</div>--}}
+
+        </div>
+
+    </div>
 
     <div class="form-group card-header">
         <label class="card-text">Url</label>
 
-        <input type="url" name="src" class="form-control card-body" id="inputGroupFile02">
+        <input type="url" name="url" class="form-control card-body" id="inputGroupFile02">
 
 
     </div>
@@ -85,101 +85,122 @@
 
 
     @endif
+<br><br>
 
-
-    <table class=" table table-responsive table-bordered">
+    <table class="table mx-auto table-bordered" style="width:1000px;">
 
         <tr>
-            <th class="text-center font-weight-light"  scope="col">Serial_name </th>
-            <th class="text-center font-weight-light"  scope="col">Details </th>
-            <th class="text-center font-weight-light"  scope="col">Url </th>
-            <th class="text-center font-weight-light"  scope="col">ShowTime </th>
-            <th class="text-center font-weight-light"  scope="col">action</th>
-            <th class="text-center font-weight-light"  scope="col">Viewing_status</th>
+
+            <th class="text-center font-weight-light"  scope="col">اسم المسلسل</th>
+            <th class="text-center font-weight-light"  scope="col">نبذة عن المسلسل </th>
+            <th class="text-center font-weight-light"  scope="col">رابط المشاهدة </th>
+            <th class="text-center font-weight-light"  scope="col">مواعيد العرض </th>
+            <th class="text-center font-weight-light"  scope="col">العملية</th>
+            <th class="text-center font-weight-light"  scope="col">حالة المشاهدة</th>
         </tr>
 
             @foreach($tarama as $taramas)
 
 
-                <tr class="btn-outline-dark">
-
-                <td  class="text-center font-weight-light" scope="row" >{{$taramas->name}}</td>
-                <td  class="text-center font-weight-light" scope="row" class="text-center" >{{$taramas->content}}</td>
-                <td  class="text-center font-weight-light " scope="row"><a href="{{$taramas->src}}" class="text-info" target="_blank"><i class="fas fa-paper-plane"></i></a></td>
-                <td  class="text-center font-weight-light" scope="row">{{$taramas->showtime}}</td>
-                    <td  class="text-center font-weight-light" scope="row"><a href="{{route('delete',['id'=>$taramas->id])}}"><i class="far fa-trash-alt font-weight-light text-danger"></i></a>
-                        <a data-toggle="modal" href="#" data-target="#update_model{{$taramas->id}}"><i class="far fa-edit text-info"></i></a></td>
-
-                    <form action="/update"method="post">
-                        <div class="modal fade" id="update_model{{$taramas->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Update informations</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="form-group card-header ">
-
-                                        {{csrf_field()}}
-                                        <label class="card-text">Move Name</label>
-                                        <input type="text" name="{{$taramas->id}}" value="{{$taramas->id}}">
-                                        <input type="text" name="{{$taramas->status}}" value="{{$taramas->status}}">
-                                        <input class="form-control card-body" type="text" name="name" value="{{$taramas->name}}">
-                                    </div>
-
-                                    <div class="form-group card-header">
-                                        {{csrf_field()}}
-                                        <label class="card-text">Show time</label>
-                                        <input class="form-control card-body" type="time" name="showtime" value="{{$taramas->showtime}}">
-                                    </div>
-
-                                    {{--<div class="form-group">--}}
-                                    {{--<div class="input-group mb-3">--}}
-                                    {{--<div class="custom-file">--}}
-                                    {{--<input type="file" name="src" class="custom-file-input" id="inputGroupFile02">--}}
-                                    {{--<label class="custom-file-label" for="inputGroupFile02">Choose image</label>--}}
-                                    {{--</div>--}}
-
-                                    {{--</div>--}}
-
-                                    {{--</div>--}}
-
-                                    <div class="form-group card-header">
-                                        <label class="card-text">Url</label>
-
-                                        <input type="url" name="src" class="form-control card-body" id="inputGroupFile02" value="{{$taramas->src}}">
 
 
-                                    </div>
-                                    <div class="form-group card-header">
-                                        <label class="card-text">Details </label>
-                                        <textarea class="form-control card-body" maxlength="153" name="content">{{$taramas->content}} </textarea>
+ <tr class="btn-outline-dark">
 
 
-                                    </div>
+ {{--<td><img class="figure-img" src="{{$taramas->src}}"></td>--}}
+ <td  class="text-center font-weight-light" scope="row" >{{$taramas->name}}</td>
+ <td  class="text-center font-weight-light" scope="row" class="text-center" >{{$taramas->content}}</td>
+ <td  class="text-center font-weight-light " scope="row"><a href="{{$taramas->url}}" class="text-info" target="_blank"><i class="fas fa-paper-plane"></i></a></td>
+ <td  class="font-weight-bold" scope="row"><input class="border-0 text-center btn-outline-warning" disabled type="time" value="{{$taramas->showtime}}"></td>
+     <td  class="text-center font-weight-light" scope="row"><a data-toggle="modal" href="#"  data-target="#confrim{{$taramas->id}}"><i class="far fa-trash-alt font-weight-light text-danger"></i></a>
+         <a data-toggle="modal" href="#" data-target="#update_model{{$taramas->id}}"><i class="far fa-edit text-info"></i></a></td>
 
-                                    <div>
+         <div class="modal fade" id="confrim{{$taramas->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-                                        <div><input class="btn btn-block btn-lg btn-light " type="submit" name="submit" value="update"></div></div>
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
 
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                     <div class="modal-header">
+
+                         <h5 class="modal-title" id="exampleModalLongTitle">Are you sure ?</h5>
+
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+
+                         </button>
+                     </div>
+                     <div class="form-group card-header text-center ">
+
+                         <a class=" btn btn-outline-success"  href="{{route('delete',['id'=>$taramas->id])}}">Yes</a>
+                         <a class="btn btn-outline-danger " data-dismiss="modal"  >No</a>
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+
+<form action="/update"method="post">
+    <div class="modal fade" id="update_model{{$taramas->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Update informations</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="form-group card-header ">
+
+    {{csrf_field()}}
+    <label class="card-text">Move Name</label>  {{csrf_field()}}
+    <input type="text" hidden  name="id" value="{{$taramas->id}}">  {{csrf_field()}}
+    <input type="text" hidden name="status" value="{{$taramas->status}}">  {{csrf_field()}}
+    <input class="form-control card-body" type="text" name="name" value="{{$taramas->name}}">  {{csrf_field()}}
+</div>
+
+<div class="form-group card-header">
+    {{csrf_field()}}
+    <label class="card-text">Show time</label>
+    <input class="form-control card-body" type="time" name="showtime" value="{{$taramas->showtime}}">
+</div>
+
+
+
+<div class="form-group card-header">
+    <label class="card-text">Url</label>
+
+    <input type="url" name="url" class="form-control card-body" id="inputGroupFile02" value="{{$taramas->url}}">
+
+
+</div>
+<div class="form-group card-header">
+    <label class="card-text">Details </label>
+    <textarea class="form-control card-body" maxlength="153" name="content">{{$taramas->content}} </textarea>
+
+
+</div>
+
+<div>
+
+    <div><input class="btn btn-block btn-lg btn-light " type="submit" name="submit" value="update"></div></div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
 
 @if($taramas->status==true)
                         <td class="text-center">
-                   <a class="text-success" href="{{route('status2',['id'=>$taramas->id])}}"><i class="far fa-eye"></i>Viewed</a>
+                   <a class="text-success" href="{{route('status2',['id'=>$taramas->id])}}"><i class="far fa-eye"></i> تمت العرض</a>
            </td>
                @endif
 
                @if($taramas->status ==false)
                         <td class="text-center">
-                   <a class="text-danger" href="{{route('status',['id'=>$taramas->id])}}"><i class="fas fa-eye-slash"></i>   View</a>
+                   <a class="text-danger" href="{{route('status',['id'=>$taramas->id])}}"><i class="fas fa-eye-slash"></i>  شاهد</a>
                     </td>
 @endif
 
@@ -187,15 +208,22 @@
         @endforeach
 
 
-
+<tfoot><tr>
+<td colspan="3" class="text-center"><a style="width:100%; " class="btn btn-outline-primary " data-toggle="modal"  data-target="#exampleModalLong">
+        أضف مسلسل جديد
+    </a></td>
+<td  class="text-center" colspan="2"><a style="width:100%; " href="{{route('home')}}" class="btn btn-outline-info text-center">
+        إذهب الى صفحة العرض
+    </a></td>
+    <td  class="text-center" colspan="2"><a style="width:100%; "  href="{{route('reset')}}" class="btn btn-outline-warning text-center">
+  إعادة مشاهدة الجميع
+    </a></td>
+</tr>
+</tfoot>
     </table>
 
-    <a class="btn btn-warning" data-toggle="modal" data-target="#exampleModalLong">
-        Add new task
-    </a>
-    <a href="{{route('reset')}}" class="btn btn-warning">
-  Reset
-    </a>
+
+
 
 </body>
 </html>

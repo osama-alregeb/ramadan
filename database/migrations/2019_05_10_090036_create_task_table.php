@@ -17,6 +17,7 @@ class CreateTaskTable extends Migration
             $table->bigIncrements('id');
             $table->string('name',200);
             $table->text('content');
+            $table->string('url');
             $table->time('showtime')->nullable();
             $table->boolean('status')->nullable();
             $table->string('src')->nullable();

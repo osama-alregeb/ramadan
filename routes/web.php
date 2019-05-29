@@ -12,6 +12,7 @@
 */
 
 Route::get('/','contrlpanel@showtask');
+Route::get('/home',['as'=>'home','uses'=>'contrlpanel@gohome']);
 Route::get('/delete/{id}',['as' =>'delete' ,'uses'=>'contrlpanel@delete']);
 Route::get('/status/{id}',['as' =>'status' ,'uses'=>'contrlpanel@status']);
 Route::get('/status2/{id}',['as' =>'status2' ,'uses'=>'contrlpanel@status2']);
