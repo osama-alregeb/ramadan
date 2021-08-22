@@ -25,7 +25,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">library</a>
-    </li>
+    </li> `
 </ul>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
